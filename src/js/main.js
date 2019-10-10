@@ -1,12 +1,15 @@
 
 	this.__GAME_WIDTH = ( window.innerWidth );
 	this.__GAME_HEIGHT = ( window.innerHeight );
-	this.__PHASER_TYPE = ( Phaser.AUTO );
+	this.__PHASER_TYPE = ( Phaser.CANVAS );
 	this.__PHASER_PARENT = ( 'game' );
 	this.__PHASER_SCALE_MODE = ( Phaser.Scale.RESIZE );
 	this.__PHASER_SCALE_AUTOCENTER = ( Phaser.Scale.CENTER_BOTH );
 	this.__physicsType = ( 'arcade' );
 	this.__gravity = ( 500 );
+	this.__lag = 0;
+	this.__fps = 60; // physics checks 60 times / frame
+	this.__frameduration = 1000 / this.fps;
 
 	this.preload = function ( )
 
@@ -24,7 +27,7 @@
 
 		// Load the export Tiled JSON
 
-		this.load.tilemapTiledJSON ( 'map', 'assets/tilemaps/level1A.json' );
+		this.load.tilemapTiledJSON ( 'map', 'assets/tilemaps/level1B.json' );
 
 	}
 
@@ -51,7 +54,7 @@
 
 		// Add the tileset to the map so the images would load correctly in Phaser
 
-		const tileset = map.addTilesetImage ( 'kenney_simple_platformer', 'tiles', 64, 64, 1, 2 );
+		const tileset = map.addTilesetImage ( 'kenney_simple_platformer', 'tiles', 66, 66, 1, 2 );
 
 		// Log the contents of `tileset`
 
@@ -114,28 +117,58 @@
 		this.cameras.main.setBounds ( 0, 0, 9100, 9100 );
 		this.cameras.main.setDeadzone ( this.__GAME_WIDTH, this.__GAME_HEIGHT );
 		this.cameras.main.setZoom ( 1.0 );
+		this.cameras.roundPixels = true;
 
 	}
 
-	this.update = function ( )
+	this.render = function ( __cursors, __player, __timestamp, __elapsed, __debug )
 
 	{
 
-		// Control the player with left or right keys
+		__debug = __debug || 0;
+		this.__debug = __debug;
 
-		if ( this.cursors.left.isDown )
+		this.__cursors = __cursors;
+		this.__player = __player;
+		this.__timestamp = __timestamp;
+		this.__elapsed = __elapsed;
+
+		if ( this.__debug )
 
 		{
 
-			this.player.setVelocityX ( -200 );
+			console.log
+
+			(
+
+				'\r\n' + 
+
+					'this.__cursors :: ' + this.__cursors + '\r\n' + 
+					'this.__player :: ' + this.__player + '\r\n' + 
+					'this.__timestamp :: ' + this.__timestamp + '\r\n' + 
+					'this.__elapsed :: ' + this.__elapsed + '\r\n' + 
+
+				'\r\n'
+
+			);
 
 		}
 
-		else if ( this.cursors.right.isDown )
+		// Control the player with left or right keys
+
+		if ( this.__cursors.left.isDown )
 
 		{
 
-			this.player.setVelocityX ( 200 );
+			this.__player.setVelocityX ( -200 );
+
+		}
+
+		else if ( this.__cursors.right.isDown )
+
+		{
+
+			this.__player.setVelocityX ( 200 );
 
 		}
 
@@ -145,7 +178,7 @@
 
 			// If no keys are pressed, the player keeps still
 
-			this.player.setVelocityX ( 0 );
+			this.__player.setVelocityX ( 0 );
 
 		}
 
@@ -156,19 +189,51 @@
 
 		(
 
-			( this.cursors.space.isDown || this.cursors.up.isDown )
+			( this.__cursors.space.isDown || this.__cursors.up.isDown )
 
 				&& 
 
-			( this.player.body.onFloor ( ) )
+			( this.__player.body.onFloor ( ) )
 
 		)
 
 		{
 
-			this.player.setVelocityY ( -450 );
+			this.__player.setVelocityY ( -450 );
 
 		}
+
+	}
+
+	this.update = function ( __timestamp, __elapsed )
+
+	{
+
+		this.__timestamp = __timestamp;
+
+			this.__elapsed = __elapsed;
+
+			this.__lag += this.__elapsed;
+
+		while ( this.__lag >= this.__frameduration )
+
+		{
+
+			this.__phys ( this.__frameduration );
+
+			this.__lag -= this.__frameduration;
+
+		}
+
+		render
+
+		(
+
+			this.cursors, this.player, this.__timestamp, 
+
+			this.__elapsed
+
+		);
 
 	}
 
@@ -179,6 +244,8 @@
 		type : this.__PHASER_TYPE, parent : this.__PHASER_PARENT, width: this.__GAME_WIDTH, 
 
 			height : this.__GAME_HEIGHT, // roundPixels : true, pixelArt : true, 
+
+			resolution : window.devicePixelRatio, 
 
 		scale: 
 
