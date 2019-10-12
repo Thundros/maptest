@@ -13,7 +13,7 @@
 
 			<body>
 
-				<script src="//cdn.jsdelivr.net/npm/phaser@3.19.0/dist/phaser.min.js"></script>
+				<script src="//cdn.jsdelivr.net/npm/phaser@3.20.0/dist/phaser.min.js"></script>
 				<script src="src/js/main.js"></script>
 
 			</body>
