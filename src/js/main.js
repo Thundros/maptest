@@ -6,10 +6,9 @@
 	this.__PHASER_SCALE_MODE = ( Phaser.Scale.RESIZE );
 	this.__PHASER_SCALE_AUTOCENTER = ( Phaser.Scale.CENTER_BOTH );
 	this.__physicsType = ( 'arcade' );
-	this.__gravity = ( 500 );
-	this.__lag = 0;
-	this.__fps = 60; // physics checks 60 times / frame
-	this.__frameduration = 1000 / this.fps;
+	this.__gravity = 500;
+	this.__movementSpeed = 400;
+	this.__jumpHeight = 550;
 
 	this.preload = function ( )
 
@@ -27,7 +26,7 @@
 
 		// Load the export Tiled JSON
 
-		this.load.tilemapTiledJSON ( 'map', 'assets/tilemaps/level1B.json' );
+		this.load.tilemapTiledJSON ( 'map', 'assets/tilemaps/level1.json' );
 
 	}
 
@@ -83,7 +82,17 @@
 
 			'platform', tileset, 0, 
 
-			200
+			0
+
+		);
+
+		const collisionWall = map.createStaticLayer
+
+		(
+
+			'collisionWall', tileset, 0, 
+
+			0
 
 		);
 
@@ -97,9 +106,11 @@
 
 		platform.setCollisionByExclusion ( -1, true );
 
+		collisionWall.setCollisionByExclusion ( -1, true );
+
 		// Add the player to the game world
 
-		this.player = this.physics.add.sprite ( 50, 300, 'player' );
+		this.player = this.physics.add.sprite ( 90, 300, 'player' );
 
 		// Our Player will not Bounce from Items
 
@@ -111,64 +122,36 @@
 
 		this.physics.add.collider ( this.player, platform );
 
+		this.physics.add.collider ( this.player, collisionWall );
+
 		// Camera Follow
 
 		this.cameras.main.startFollow ( this.player, false, 0.08, 0.08 );
-		this.cameras.main.setBounds ( 0, 0, 9100, 9100 );
+		this.cameras.main.setBounds ( 66, 66, 8315, 8315 );
 		this.cameras.main.setDeadzone ( this.__GAME_WIDTH, this.__GAME_HEIGHT );
-		this.cameras.main.setZoom ( 1.0 );
-		this.cameras.roundPixels = true;
+		this.cameras.main.setZoom ( 5.0 );
 
 	}
 
-	this.render = function ( __cursors, __player, __timestamp, __elapsed, __debug )
+	this.update = function ( __timestamp, __elapsed )
 
 	{
 
-		__debug = __debug || 0;
-		this.__debug = __debug;
-
-		this.__cursors = __cursors;
-		this.__player = __player;
-		this.__timestamp = __timestamp;
-		this.__elapsed = __elapsed;
-
-		if ( this.__debug )
-
-		{
-
-			console.log
-
-			(
-
-				'\r\n' + 
-
-					'this.__cursors :: ' + this.__cursors + '\r\n' + 
-					'this.__player :: ' + this.__player + '\r\n' + 
-					'this.__timestamp :: ' + this.__timestamp + '\r\n' + 
-					'this.__elapsed :: ' + this.__elapsed + '\r\n' + 
-
-				'\r\n'
-
-			);
-
-		}
-
 		// Control the player with left or right keys
 
-		if ( this.__cursors.left.isDown )
+		if ( this.cursors.left.isDown )
 
 		{
 
-			this.__player.setVelocityX ( -200 );
+			this.player.setVelocityX ( -__movementSpeed );
 
 		}
 
-		else if ( this.__cursors.right.isDown )
+		else if ( this.cursors.right.isDown )
 
 		{
 
-			this.__player.setVelocityX ( 200 );
+			this.player.setVelocityX ( __movementSpeed );
 
 		}
 
@@ -178,7 +161,7 @@
 
 			// If no keys are pressed, the player keeps still
 
-			this.__player.setVelocityX ( 0 );
+			this.player.setVelocityX ( 0 );
 
 		}
 
@@ -189,51 +172,19 @@
 
 		(
 
-			( this.__cursors.space.isDown || this.__cursors.up.isDown )
+			( this.cursors.space.isDown || this.cursors.up.isDown )
 
 				&& 
 
-			( this.__player.body.onFloor ( ) )
+			( this.player.body.onFloor ( ) )
 
 		)
 
 		{
 
-			this.__player.setVelocityY ( -450 );
+			this.player.setVelocityY ( -__jumpHeight );
 
 		}
-
-	}
-
-	this.update = function ( __timestamp, __elapsed )
-
-	{
-
-		this.__timestamp = __timestamp;
-
-			this.__elapsed = __elapsed;
-
-			this.__lag += this.__elapsed;
-
-		while ( this.__lag >= this.__frameduration )
-
-		{
-
-			this.__phys ( this.__frameduration );
-
-			this.__lag -= this.__frameduration;
-
-		}
-
-		render
-
-		(
-
-			this.cursors, this.player, this.__timestamp, 
-
-			this.__elapsed
-
-		);
 
 	}
 
