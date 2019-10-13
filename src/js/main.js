@@ -11,6 +11,7 @@
 	this.__jumpHeight = 550;
 
 	this.preload = function(){
+
 		// Image layers from Tiled can't be exported to Phaser 3 (as yet)
 		// So we add the background image separately
 		this.load.image('background', 'assets/images/background.png');
@@ -21,9 +22,11 @@
 
 		// Load the export Tiled JSON
 		this.load.tilemapTiledJSON('map', 'assets/tilemaps/level1.json');
+
 	}
 
 	this.create = function(){
+
 		// Enable user input via cursor keys
 		this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -86,6 +89,7 @@
 		this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
 		this.cameras.main.roundPixels = true;
 		this.cameras.main.setZoom(5.0);
+
 	}
 
 	this.update = function(__timestamp, __elapsed) {
@@ -142,6 +146,7 @@
 				},
 			},
 		}
+
 	}
 
 	this.__game = new Phaser.Game(this.__config);
