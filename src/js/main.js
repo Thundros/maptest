@@ -111,6 +111,7 @@
 
 	}
 
+	// The `config` for our Phaser 3 Game
 	this.__config = {
 
 		type: this.__PHASER_TYPE,
