@@ -83,8 +83,7 @@
 		this.physics.add.collider(this.player, collisionWall);
 
 		// Camera Follow
-		this.cameraDolly = new Phaser.Geom.Point(this.player.x, this.player.y);
-		this.cameras.main.startFollow(this.cameraDolly, false, 0.08, 0.08);
+		this.cameras.main.startFollow(this.player, false, 0.08, 0.08);
 		this.cameras.main.setBounds(66, 66, platform.width * platform.scaleX, platform.height * platform.scaleY);
 		this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
 		this.cameras.main.roundPixels = true;
@@ -93,10 +92,6 @@
 	}
 
 	this.update = function(__timestamp, __elapsed) {
-
-		// Move the camera dolly in round pixels
-		this.cameraDolly.x = Math.floor(this.player.x);
-		this.cameraDolly.y = Math.floor(this.player.y);
 
 		// Control the player with left or right keys
 		if (this.cursors.left.isDown) {
