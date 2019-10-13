@@ -11,7 +11,7 @@
 	this.__movementSpeed = 400;
 	this.__jumpHeight = 550;
 
-	// Preload our Phaser 3 Game
+	// Preload all `assets` of our Phaser 3 Game
 	this.preload = function(){
 
 		// Image layers from Tiled can't be exported to Phaser 3 (as yet)
