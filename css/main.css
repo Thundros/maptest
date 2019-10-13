@@ -1,57 +1,37 @@
 
-    BODY
+	BODY {
 
-	{
-
-	  background-color : #000; overflow : hidden; margin : 0px;
-
-      padding : 0px;
-
-    }
-
-	canvas
-
-	{
-
-		image-rendering : optimizeSpeed;
-
-		/* Legal fallback */
-
-		image-rendering : -moz-crisp-edges;
-
-		/* Firefox */
-
-		image-rendering : -o-crisp-edges;
-
-		/* Opera */
-
-		image-rendering : -webkit-optimize-contrast;
-
-		/* Safari */
-
-		image-rendering : optimize-contrast;
-
-		/* CSS3 Proposed */
-
-		image-rendering : crisp-edges;
-
-		/* CSS4 Proposed */
-
-		image-rendering : pixelated;
-
-		/* CSS4 Proposed  */
-
-		-ms-interpolation-mode : nearest-neighbor;
-
-		/* IE8+ */
+		background-color: #000;
+		overflow: hidden;
+		margin: 0px; 
+		padding: 0px;
 
 	}
 
-    #game
+	canvas {
 
-	{
+		/* Legal fallback */
+		image-rendering: optimizeSpeed;
+		/* Firefox */
+		image-rendering: -moz-crisp-edges;
+		/* Opera */
+		image-rendering: -o-crisp-edges;
+		/* Safari */
+		image-rendering: -webkit-optimize-contrast;
+		/* CSS3 Proposed */
+		image-rendering: optimize-contrast;
+		/* CSS4 Proposed */
+		image-rendering: crisp-edges;
+		/* CSS4 Proposed  */
+		image-rendering: pixelated;
+		/* IE8+ */
+		-ms-interpolation-mode: nearest-neighbor;
 
-      margin : 0px; padding : 0px;
+	}
+
+    #game {
+
+      margin: 0px; padding: 0px;
 
     }
 
