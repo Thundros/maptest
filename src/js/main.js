@@ -84,9 +84,9 @@
 		this.physics.add.collider(this.player, collisionWall);
 
 		// Camera Follow
-		this.cameras.main.startFollow(this.player, false, 0.08, 0.08);
-		this.cameras.main.setBounds(66, 66, platform.width * platform.scaleX, platform.height * platform.scaleY);
-		this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
+		this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+		this.cameras.main.setBounds(66, 66, platform.width * platform.scaleX - 131, platform.height * platform.scaleY - 131 );
+		// this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
 		this.cameras.main.roundPixels = true;
 		this.cameras.main.setZoom(5.0);
 
