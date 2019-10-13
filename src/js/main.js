@@ -8,7 +8,7 @@
 	this.__PHASER_SCALE_AUTOCENTER = Phaser.Scale.CENTER_BOTH;
 	this.__physicsType = 'arcade';
 	this.__gravity = 500;
-	this.__movementSpeed = 400;
+	this.__movementSpeed = 15;
 	this.__jumpHeight = 550;
 
 	// Preload all `assets` of our Phaser 3 Game
@@ -128,7 +128,7 @@
 		parent: this.__PHASER_PARENT,
 		width: this.__GAME_WIDTH,
 		height: this.__GAME_HEIGHT,
-		roundPixels: true,
+		roundPixels: false,
 		pixelArt: true,
 		antialias: false,
 		resolution: window.devicePixelRatio,
@@ -145,6 +145,7 @@
 		physics: {
 			default: __physicsType, 
 			arcade: {
+		debug : true, 
 				gravity: {
 					y: this.__gravity,
 				},
