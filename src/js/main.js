@@ -88,7 +88,7 @@
 		this.cameras.main.setBounds(66, 66, platform.width * platform.scaleX, platform.height * platform.scaleY);
 		this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
 		this.cameras.main.roundPixels = true;
-		this.cameras.main.setZoom(5.0);
+		this.cameras.main.setZoom(1.0);
 
 	}
 
