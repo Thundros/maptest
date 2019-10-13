@@ -1,4 +1,5 @@
 
+	// The `variables` used for our Phaser 3 Game's `config`
 	this.__GAME_WIDTH = window.innerWidth;
 	this.__GAME_HEIGHT = window.innerHeight;
 	this.__PHASER_TYPE = Phaser.AUTO;
