@@ -11,6 +11,7 @@
 	this.__movementSpeed = 400;
 	this.__jumpHeight = 550;
 
+	// Preload our Phaser 3 Game
 	this.preload = function(){
 
 		// Image layers from Tiled can't be exported to Phaser 3 (as yet)
@@ -26,6 +27,7 @@
 
 	}
 
+	// Create & / or display all `assets` in our Phaser 3 Game
 	this.create = function(){
 
 		// Enable user input via cursor keys
@@ -92,6 +94,7 @@
 
 	}
 
+	// Update our Phaser 3 Game
 	this.update = function(__timestamp, __elapsed) {
 
 		// Control the player with left or right keys
