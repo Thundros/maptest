@@ -56,12 +56,10 @@
 
 		// Add the platform layer as a static group, the player would be able
 		// to jump on platforms like world collisions but they shouldn't move
-
 		const platform = map.createStaticLayer ( 'platform', tileset, 0, 0 );
 
 		// Add the collisionWall layer as a static group, the player would be able
 		// to be blocked by invisible walls
-
 		const collisionWall = map.createStaticLayer ( 'collisionWall', tileset, 0, 0 );
 
 		// There are many ways to set collision between tiles and players
