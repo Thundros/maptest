@@ -89,9 +89,11 @@
 	}
 
 	this.update = function(__timestamp, __elapsed) {
+
 		// Move the camera dolly in round pixels
 		this.cameraDolly.x = Math.floor(this.player.x);
 		this.cameraDolly.y = Math.floor(this.player.y);
+
 		// Control the player with left or right keys
 		if (this.cursors.left.isDown) {
 			this.player.setVelocityX(-__movementSpeed);
@@ -101,6 +103,7 @@
 			// If no keys are pressed, the player keeps still
 			this.player.setVelocityX(0);
 		}
+
 		// Player can jump while walking any direction by 
 		// pressing the space bar or the 'UP' arrow
 		if ( (this.cursors.space.isDown || this.cursors.up.isDown) && (this.player.body.onFloor()) ) {
