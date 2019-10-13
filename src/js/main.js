@@ -109,6 +109,7 @@
 		if ( (this.cursors.space.isDown || this.cursors.up.isDown) && (this.player.body.onFloor()) ) {
 			this.player.setVelocityY(-__jumpHeight);
 		}
+
 	}
 
 	this.__config = {
