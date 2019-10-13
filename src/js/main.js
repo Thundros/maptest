@@ -121,11 +121,9 @@
 		type: this.__PHASER_TYPE,
 		parent: this.__PHASER_PARENT,
 		width: this.__GAME_WIDTH,
-
 		height: this.__GAME_HEIGHT,
 		roundPixels: true,
 		pixelArt: true,
-
 		antialias: false,
 		resolution: window.devicePixelRatio,
 
