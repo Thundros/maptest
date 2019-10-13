@@ -86,11 +86,9 @@
 		this.cameras.main.setDeadzone(this.__GAME_WIDTH, this.__GAME_HEIGHT);
 		this.cameras.main.roundPixels = true;
 		this.cameras.main.setZoom(5.0);
-
 	}
 
 	this.update = function(__timestamp, __elapsed) {
-
 		// Move the camera dolly in round pixels
 		this.cameraDolly.x = Math.floor(this.player.x);
 		this.cameraDolly.y = Math.floor(this.player.y);
@@ -110,7 +108,6 @@
 		if ( (this.cursors.space.isDown || this.cursors.up.isDown) && (this.player.body.onFloor()) ) {
 			this.player.setVelocityY(-__jumpHeight);
 		}
-
 	}
 
 	this.__config = {
@@ -127,10 +124,8 @@
 		resolution: window.devicePixelRatio,
 
 		scale: {
-
 			mode: this.__PHASER_SCALE_MODE,
 			autoCenter: this.__PHASER_SCALE_AUTOCENTER,
-
 		},
 
 		scene: {
