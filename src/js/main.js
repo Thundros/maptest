@@ -8,7 +8,7 @@
 	this.__PHASER_SCALE_AUTOCENTER = Phaser.Scale.CENTER_BOTH;
 	this.__physicsType = 'arcade';
 	this.__gravity = 500;
-	this.__movementSpeed = 15;
+	this.__movementSpeed = 150;
 	this.__jumpHeight = 550;
 
 	// Preload all `assets` of our Phaser 3 Game
@@ -84,7 +84,9 @@
 		this.physics.add.collider(this.player, collisionWall);
 
 		// Camera Follow
-		this.cameras.main.startFollow(this.player, true, 0.08, 0.08 );
+		// this.cameras.main.startFollow(this.player, true, 0.08, 0.08 );
+
+		this.cameras.main.startFollow(this.player, false, 1, 1, -10, 0 );
 
 		// Round Camera Pixels with integer{s}
 		// this.cameras.main.roundPixels = true;
@@ -145,7 +147,7 @@
 		physics: {
 			default: __physicsType, 
 			arcade: {
-		debug : true, 
+				debug : true, 
 				gravity: {
 					y: this.__gravity,
 				},
